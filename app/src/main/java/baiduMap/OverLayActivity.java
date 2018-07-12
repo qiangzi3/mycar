@@ -1,5 +1,6 @@
 package baiduMap;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.res.AssetManager;
 import android.graphics.Bitmap;
@@ -7,7 +8,14 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
+import android.webkit.ClientCertRequest;
+import android.webkit.WebResourceError;
+import android.webkit.WebResourceRequest;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.baidu.mapapi.map.BaiduMap;
 import com.baidu.mapapi.map.FileTileProvider;
@@ -22,6 +30,7 @@ import com.baidu.mapapi.map.TileProvider;
 import com.baidu.mapapi.map.UrlTileProvider;
 import com.baidu.mapapi.model.LatLng;
 import com.baidu.mapapi.model.LatLngBounds;
+import com.baidu.mapsdkplatform.comapi.map.MapRenderer;
 import com.gyjc.carmonitor.R;
 
 import java.io.InputStream;
@@ -38,10 +47,12 @@ public class OverLayActivity extends Activity implements View.OnClickListener {
     TextView offline_tv;
     @BindView(R.id.mapview)
     MapView mapView;
+    @BindView(R.id.web)
+    WebView webView;
     BaiduMap mBaiduMap;
     MapStatusUpdate mMapStatusUpdate;
 
-
+    String url="http://47.94.19.253/baiduMap/demo.html";
     // 设置瓦片图的在线缓存大小，默认为20 M
     private static final int TILE_TMP = 20 * 1024 * 1024;
     private static final int MAX_LEVEL = 21;
@@ -59,6 +70,7 @@ public class OverLayActivity extends Activity implements View.OnClickListener {
         initdata();
     }
     private void initdata(){
+        MapPresenter presenter = new MapPresenter();
         mBaiduMap = mapView.getMap();
         MapStatus.Builder builder = new MapStatus.Builder();
         builder.zoom(16.0f);
@@ -67,18 +79,55 @@ public class OverLayActivity extends Activity implements View.OnClickListener {
         mBaiduMap.setMapStatus(mMapStatusUpdate);
         online_tv.setOnClickListener(this);
         offline_tv.setOnClickListener(this);
+        presenter.initWeb(webView,webViewClient);
+        webView.loadUrl(url);
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.offline_tv:
+//                offlineTile();
+                if (webView.getVisibility()==View.VISIBLE){
+                        webView.setVisibility(View.GONE);
+                }else {
+                    if (Utils.isNetworkAvailable(this)){
+                        webView.setVisibility(View.VISIBLE);
+                    }else {
+                        Toast.makeText(this,"请检查网络",Toast.LENGTH_SHORT).show();
+                    }
+
+                }
                 break;
             case R.id.online_tv:
+//                onlineTile();
                 break;
         }
 
     }
+
+
+    WebViewClient webViewClient = new WebViewClient(){
+        @Override
+        public void onReceivedClientCertRequest(WebView view, ClientCertRequest request) {
+
+        }
+
+        @Override
+        public void onReceivedError(WebView view, WebResourceRequest request, WebResourceError error) {
+
+        }
+
+        @Override
+        public void onPageStarted(WebView view, String url, Bitmap favicon) {
+
+        }
+
+        @Override
+        public boolean shouldOverrideUrlLoading(WebView view, String url) {
+            return super.shouldOverrideUrlLoading(view, url);
+        }
+    };
 
     /**
      * 使用瓦片图的在线方式
