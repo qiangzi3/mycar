@@ -52,12 +52,13 @@ public class OverLayActivity extends Activity implements View.OnClickListener {
     BaiduMap mBaiduMap;
     MapStatusUpdate mMapStatusUpdate;
 
-    String url="http://47.94.19.253/baiduMap/demo.html";
+
     // 设置瓦片图的在线缓存大小，默认为20 M
     private static final int TILE_TMP = 20 * 1024 * 1024;
     private static final int MAX_LEVEL = 21;
     private static final int MIN_LEVEL = 3;
-
+    String stateUrl = "file:///android_asset/satellitemap/demo.html";//卫星地图
+    String electronUrl="file:///android_asset/electronicmap/demo.html";//电子地图
     TileProvider tileProvider;
     TileOverlay tileOverlay;
     Tile offlineTile;
@@ -80,27 +81,18 @@ public class OverLayActivity extends Activity implements View.OnClickListener {
         online_tv.setOnClickListener(this);
         offline_tv.setOnClickListener(this);
         presenter.initWeb(webView,webViewClient);
-        webView.loadUrl(url);
+        webView.loadUrl(electronUrl);
+        webView.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.offline_tv:
-//                offlineTile();
-                if (webView.getVisibility()==View.VISIBLE){
-                        webView.setVisibility(View.GONE);
-                }else {
-                    if (Utils.isNetworkAvailable(this)){
-                        webView.setVisibility(View.VISIBLE);
-                    }else {
-                        Toast.makeText(this,"请检查网络",Toast.LENGTH_SHORT).show();
-                    }
-
-                }
+                webView.loadUrl(stateUrl);
                 break;
             case R.id.online_tv:
-//                onlineTile();
+                webView.loadUrl(electronUrl);
                 break;
         }
 
