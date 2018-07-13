@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="__local_jars__:E.\data\mycar\app\libs\mina4android.jar:unspecified@jar">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/app/libs/mina4android.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

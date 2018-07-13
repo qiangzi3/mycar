@@ -52,7 +52,7 @@ public class OverLayActivity extends Activity implements View.OnClickListener {
     BaiduMap mBaiduMap;
     MapStatusUpdate mMapStatusUpdate;
 
-    String url="http://47.94.19.253/baiduMap/demo.html";
+    String url="http://47.94.165.141/map1/demo.html";
     // 设置瓦片图的在线缓存大小，默认为20 M
     private static final int TILE_TMP = 20 * 1024 * 1024;
     private static final int MAX_LEVEL = 21;
