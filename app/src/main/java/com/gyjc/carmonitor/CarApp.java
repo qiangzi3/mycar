@@ -7,6 +7,8 @@ import com.baidu.mapapi.SDKInitializer;
 import com.tencent.bugly.Bugly;
 import com.tencent.bugly.beta.Beta;
 
+import baiduMap.LocationService;
+
 /**
  * Created by weizilong on 2018/5/13.
  * <p>
@@ -14,10 +16,24 @@ import com.tencent.bugly.beta.Beta;
  */
 public class CarApp extends Application {
 
+    private static CarApp instance;
+    public static  CarApp getInstance(){
+       return instance;
+    }
+
+    /**
+     * 地图定位服务
+     */
+    public static LocationService locationService;
     @Override
     public void onCreate() {
         super.onCreate();
+            instance = this;
 
+        //初始化定位服务
+        if (locationService == null) {
+            locationService = new LocationService(this);
+        }
         Beta.autoInit = true;
 
         /**
