@@ -172,9 +172,9 @@ public class MainActivity extends Activity implements Callback,QueryHistoryListe
 
     @Override
     public void onReceiveCarStatus(CarStatusInfo carStatus) {
-		Log.i(TAG, "car Lat:::::::::" + carStatus.getLatitude());
-		Log.i(TAG, "car Log:::::::::" + carStatus.getLongitude());
-		Log.i(TAG, "car speed::::::::::::" + carStatus.getSpeed() + "KM/H");
+        Log.i(TAG, "car Lat:::::::::" + carStatus.getLatitude());
+        Log.i(TAG, "car Log:::::::::" + carStatus.getLongitude());
+        Log.i(TAG, "car speed::::::::::::" + carStatus.getSpeed() + "KM/H");
     }
 
 

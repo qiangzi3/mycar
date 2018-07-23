@@ -2,6 +2,8 @@ package baiduMap;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.res.AssetManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -9,6 +11,9 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
 import android.webkit.ClientCertRequest;
+import android.webkit.JsPromptResult;
+import android.webkit.JsResult;
+import android.webkit.WebChromeClient;
 import android.webkit.WebResourceError;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
@@ -57,8 +62,8 @@ public class OverLayActivity extends Activity implements View.OnClickListener {
     private static final int TILE_TMP = 20 * 1024 * 1024;
     private static final int MAX_LEVEL = 21;
     private static final int MIN_LEVEL = 3;
-    String stateUrl = "file:///android_asset/satellitemap/demo.html";//卫星地图
-    String electronUrl="file:///android_asset/electronicmap/demo.html";//电子地图
+    String stateUrl = "file:////android_asset/satellitemap/demo.html";//卫星地图
+    String electronUrl="file:////android_asset/electronicmap/demo.html";//电子地图
     TileProvider tileProvider;
     TileOverlay tileOverlay;
     Tile offlineTile;
@@ -81,8 +86,11 @@ public class OverLayActivity extends Activity implements View.OnClickListener {
         online_tv.setOnClickListener(this);
         offline_tv.setOnClickListener(this);
         presenter.initWeb(webView,webViewClient);
+        WebSettings settings = webView.getSettings();
+        settings.setJavaScriptEnabled(true);
         webView.loadUrl(electronUrl);
         webView.setVisibility(View.VISIBLE);
+        //webView.addJavascriptInterface();
     }
 
     @Override
@@ -90,9 +98,11 @@ public class OverLayActivity extends Activity implements View.OnClickListener {
         switch (v.getId()){
             case R.id.offline_tv:
                 webView.loadUrl(stateUrl);
+                webView.reload();
                 break;
             case R.id.online_tv:
                 webView.loadUrl(electronUrl);
+                webView.reload();
                 break;
         }
 

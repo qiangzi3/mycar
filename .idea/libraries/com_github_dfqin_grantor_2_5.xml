@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="com.github.dfqin:grantor-2.5">
+    <CLASSES>
+      <root url="file://$USER_HOME$/.android/build-cache/16e75e9e48c155fd8acc298e8837125531237aea/output/res" />
+      <root url="jar://$USER_HOME$/.android/build-cache/16e75e9e48c155fd8acc298e8837125531237aea/output/jars/classes.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.dfqin/grantor/2.5/d7fe5fa63f8783b671c27ad7dc258521f5806623/grantor-2.5-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
